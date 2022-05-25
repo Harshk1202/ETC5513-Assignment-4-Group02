@@ -1,5 +1,5 @@
 ---
-title: "Analysis of CO2 Emission and Energy Consumption around the world"
+title: "Analysis of Average Working Hours and GDP around the world from 1970 - 2017"
 author:
 - familyname: Wu
   othernames: Zhenyu
@@ -50,10 +50,10 @@ library(tidyverse)
 library(readr)
 library(kableExtra)
 library(bookdown)
-
+library(scales)
 ```
 
-```{r read-data, echo=FALSE}
+```{r read-data, echo=FALSE, message = FALSE, warning = FALSE}
 Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 ```
 
@@ -65,4 +65,33 @@ au_idn <- Analysis_Data %>%
   select(Country, Year, avh, gdp) %>%
   filter(Country %in% c("Australia", "Indonesia"), 
          Year >=1970 & Year <=2017)
+```
+
+```{r avh, echo=FALSE, fig.cap="Comparison of Average annual hours worked by workers in Australia and Indonesia"}
+au_idn %>% 
+  ggplot(aes(x = Year, 
+             y = avh, 
+             color = Country)) +
+  geom_line() +
+    labs(x = "Year",
+         y = "hours",
+         title = "Average annual hours worked by workers from year 1970-2017",
+         caption = "Data from ourworldindata.org (2020)") +
+  scale_y_continuous(labels = label_number(big.mark = ",")) +
+  theme_bw()
+  
+```
+
+```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita"}
+au_idn %>% 
+  ggplot(aes(x = Year, 
+             y = gdp, 
+             color = Country)) +
+  geom_line()+
+    labs(x = "Year",
+         y = "USD",
+         title = "GDP per capita from year 1970-2017" ,
+         caption = "Data from ourworldindata.org (2020)")+
+  theme_bw()
+  
 ```
