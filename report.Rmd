@@ -53,8 +53,16 @@ library(bookdown)
 
 ```
 
-```{r}
+```{r read-data, echo=FALSE}
 Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 ```
 
-
+```{r au_idn, echo=FALSE}
+au_idn <- Analysis_Data %>%
+  rename(Country = "Entity", 
+         avh = "Average annual hours worked by persons engaged (avh) (PWT 9.1 (2019))",
+         gdp = "Output-side real GDP per capita (gdppc_o) (PWT 9.1 (2019))") %>%
+  select(Country, Year, avh, gdp) %>%
+  filter(Country %in% c("Australia", "Indonesia"), 
+         Year >=1970 & Year <=2017)
+```
