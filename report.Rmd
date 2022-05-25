@@ -53,8 +53,112 @@ library(bookdown)
 
 ```
 
-```{r}
+\section*{Country China and USA}
+
+## Read data
+
+```{r warning=FALSE, message=FALSE}
+options(scipen = 200)
 Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 ```
 
+## Data preprocessing
 
+```{r warning=FALSE, message=FALSE}
+# filtering data from 1970 to 2017 for China and the United States
+data <- Analysis_Data %>%
+  filter(Entity %in% c("China","United States")) %>%
+  filter(Year>=1970 & Year<=2017)
+dim(data)
+```
+
+## Overall descriptive statistical analysis
+ 
+```{r warning=FALSE, message=FALSE}
+data <- data %>%
+  rename(Average.annual.hours.worked=
+        "Average annual hours worked by persons engaged (avh) (PWT 9.1 (2019))",
+        GDP.per.capita="Output-side real GDP per capita (gdppc_o) (PWT 9.1 (2019))",
+        Population="Population (historical estimates)",
+        Country=Entity) 
+ overall <- data %>%
+    group_by(Country) %>%
+    summarise_at(c("Average.annual.hours.worked","GDP.per.capita","Population"),
+                 list(Minimum = ~min(.,na.rm=TRUE), 
+                      Median = ~median(.,na.rm=TRUE), 
+                      Mean = ~mean(.,na.rm=TRUE),
+                      Maximum = ~max(.,na.rm=TRUE))) %>%
+    pivot_longer(!Country, names_sep ="_",
+                 names_to = c("Variable", ".value"))%>%
+   mutate(Variable=ifelse(Variable=="Average.annual.hours.worked",
+                          "Hours.worked",Variable))
+```
+
+```{r Table1, warning=FALSE, message=FALSE}
+knitr::kable(overall, digits = 2,
+    caption = "Descriptive statistical analysis of China and the United States")
+```
+
+## Trends in average annual hours worked and GDP per capita
+
+```{r Figure1,fig.cap="Trends in GDP per capita", warning=FALSE, message=FALSE}
+ggplot(data,mapping = aes(x = Year,y=GDP.per.capita,
+                           color=Country,group=Country)) +
+  geom_line() +
+  labs(y ="GDP per capita", 
+       caption = "Source: World Bank data base")+
+    theme_bw()
+```
+
+```{r Figure2,fig.cap="Trends in average annual hours worked", warning=FALSE, message=FALSE}
+ggplot(data,mapping = aes(x = Year,y=Average.annual.hours.worked,
+                           color=Country,group=Country)) +
+  geom_line() +
+  labs(y ="Average annual hours worked", 
+       caption = "Source: World Bank data base")+
+    theme_bw()
+```
+
+## The relationship between average annual hours worked and GDP
+
+```{r Figure3,fig.cap="Relationship between average annual hours worked and GDP (China)", warning=FALSE, message=FALSE}
+data %>%
+    filter(Country=="China")%>%
+    ggplot(mapping = aes(x = Average.annual.hours.worked,
+                          y=GDP.per.capita))+
+    geom_point() + 
+    stat_smooth(method=lm)+
+  labs(x ="Average annual hours worked", 
+       y ="GDP per capita", 
+       caption = "Source: World Bank data base")+
+    theme_bw()
+```
+
+```{r Figure4,fig.cap="Relationship between average annual hours worked and GDP (United States)", warning=FALSE, message=FALSE}
+data %>%
+    filter(Country=="United States")%>%
+    ggplot(mapping = aes(x = Average.annual.hours.worked,
+                          y=GDP.per.capita))+
+    geom_point() + 
+    stat_smooth(method=lm)+
+  labs(x ="Average annual hours worked", 
+       y ="GDP per capita", 
+       caption = "Source: World Bank data base")+
+    theme_bw()
+```
+
+## Conclusion
+
+In this section, I analyzed data from China and the United States. First, I filtered out the data for these two countries from 1970 to 2017. Then I performed an overall descriptive statistical analysis of the primary variables (Average.annual.hours.worked, GDP.per.capita and Population).
+
+As shown in Table1\@ref(tab:Table1), the mean or median population in China is significantly larger than in the United States. But in GDP per capita, China is significantly less than the United States. And the average annual hours worked is slightly higher in China than in the United States.
+
+The trends of GDP in China and USA in Figure\@ref(fig:Figure1) shows that GDP per capita in both China and the U.S. is rising year by year, but the upward trend is more obvious in the United States. And for the average annual hours worked shown in Figure\@ref(fig:Figure2), I found a clear upward trend of average annual hours worked in China, while the United States has fluctuated but declined slightly overall.
+
+Finally, I compared the relationship between average annual hours worked and GDP per capita in China and the United States. In China, the two variables showed a negative correlation in Figure\@ref(fig:Figure3), while in the United States of Figure\@ref(fig:Figure4), average annual hours worked decreases as GDP per capita rises.
+
+## Reference
+
+[1] Wickham H, Averick M, Bryan J, et al. Welcome to the Tidyverse[J]. Journal of open source software, 2019, 4(43): 1686.
+
+[2] Wickham H, Chang W, Wickham M H. Package ‘ggplot2’[J]. Create elegant data visualisations using the grammar of graphics. Version, 2016, 2(1): 1-189.
