@@ -1,0 +1,60 @@
+---
+title: "Analysis of CO2 Emission and Energy Consumption around the world"
+author:
+- familyname: Wu
+  othernames: Zhenyu
+  address: Monash Universtidy
+  email: zwuu0014@student.monash.edu
+  correspondingauthor: true
+  qualifications:  Master of Business Analytics
+- familyname: Katiyar
+  othernames: Harsh
+  address: Monash University
+  email: hkat0008@student.monash.edu
+  correspondingauthor: true
+  qualifications: Master of Business Analytics
+- familyname: Pan
+  othernames: Liwen
+  address: Monash University
+  email: lpan0037@student.monash.edu
+  correspondingauthor: true
+  qualifications:  Master of Business Analytics
+- familyname: Valensia
+  othernames: Josephine
+  address: Monash Universtidy
+  email: jval0011@student.monash.edu
+  correspondingauthor: true
+  qualifications: Master of Business Analytics
+department: Department of Business and Econometrics
+organization: Monash University
+bibliography: references.bib
+biblio-style: authoryear-comp
+linestretch: 1.5
+output:
+  bookdown::pdf_document2:
+    template: monashreport2.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: biblatex
+    toc: false
+---
+
+```{r , echo = FALSE, message = FALSE, warning = FALSE}
+# Libraries
+library(tidyverse)
+library(readr)
+library(kableExtra)
+library(bookdown)
+
+```
+
+```{r}
+Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
+```
+
+
