@@ -53,11 +53,13 @@ library(bookdown)
 library(scales)
 ```
 
-\section*{Introduction}
+# Introduction
 
-## Research Question and Background
+## Research Question
 
 How do the average annual hours worked relates to the GDP in different countries from the year of 1970 to 2017?
+
+## Background
 
 @reference3 indicates that workers in rich countries tend to be shorter than workers in poor countries. Because in richer countries, workers per hour production capacity is higher, which means that people there have the higher income and less working hours. Therefore, the dramatic differences between different countries working time on how we look at the past two centuries of economic progress and the essence of the inequality between countries today has an important impact.
 
@@ -68,7 +70,7 @@ This report will compare different countries to analyze the relationship between
 The first section will compare the countries between China and USA to analyze the relationship. The second section will choose the India and United Kingdom. Then we are going to see the country of France and Mexico because they are in two different income groups in the world. And the last part we will have a comparison between Indonesia and Australia.
 
 
-\section*{China and USA}
+# China and USA
 
 ## Read data
 
@@ -172,8 +174,9 @@ The trends of GDP in China and USA in Figure\@ref(fig:Figure1) shows that GDP pe
 
 Finally, I compared the relationship between average annual hours worked and GDP per capita. In The United States Figure\@ref(fig:Figure4), as the annual work hours going down the trend of GDP per capita will going up. But for China Figure\@ref(fig:Figure3) is completely opposite. When the annual work hours going up, The GDP per capital will also going up. I think it due to the high-speed development of economic in China. Furthermore, @BANISTER200521 also mentioned that in 21 of the 24 years from 1978 to 2001, China's per capita GDP grew in real terms between 6% and 14%. China's per capita living standards (measured by real GDP per capita) nearly quadrupled between 1978 and 2001.
 
+\clearpage
 
-\section*{India and United Kingdom}
+# India and United Kingdom
 
 For **India and United Kingdom**, GDP and Annual working hours data from 1970 to 2017, lets calculate average of GDP and Working hours from 1970 to 2017 in \@ref(tab:TableAvg)
 
@@ -225,8 +228,9 @@ From the above Figure \@ref(fig:FigTrend), it is clear that in India, the Averag
 
 To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article @article2 which discusses about the macroeconomics factors which affect the GDP growth.
 
+\clearpage
 
-\section*{France and Mexico}
+# France and Mexico
 
 ## Background
 
@@ -301,7 +305,9 @@ And we can find from the table that the France has a lower working hours and a h
 
 Therefore, it can be concluded from these two countries that while average earnings have risen, hours worked have fallen. And working hours tend to decrease as countries become richer.
 
-\section*{Australia and Indonesia}
+\clearpage
+
+# Australia and Indonesia
 
 According to @owidworkinghours, in over 100 years, the average working hours have drastically decreased for many countries. However, around the world, there are still significant gaps between countries where poorer countries with lower GDP (Gross domestic product) tend to work much more than workers in wealthier countries with higher GDP. Hence, this section will look at mainly two countries: **Australia** (having a higher GDP) and **Indonesia** (which has a lower GDP).
 
