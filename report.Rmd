@@ -59,7 +59,7 @@ Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 
 \section*{Australia and Indonesia}
 
-According to @owidworkinghours, in over 100 years the average working hours has drastically decreased for many countries. However, around the world there are still large gaps between countries where in poorer countries, with lower GDP (Gross domestic product), tend to work much more than workers in richer countries, with higher GDP. Hence, in this section we will look at particularly two countries: Australia (having a higher GDP) and Indonesia (which have a lower GDP).
+According to @owidworkinghours, in over 100 years, the average working hours have drastically decreased for many countries. However, around the world, there are still significant gaps between countries where poorer countries with lower GDP (Gross domestic product) tend to work much more than workers in wealthier countries with higher GDP. Hence, this section will look at mainly two countries: Australia (having a higher GDP) and Indonesia (which has a lower GDP).
 
 ```{r au_idn, echo=FALSE}
 au_idn <- Analysis_Data %>%
@@ -85,7 +85,7 @@ au_idn %>%
   theme_bw()
 ```
 
-The figure \@ref(fig:awh) and figure \@ref(fig:gdp) that show how the Average annual working hours and the GDP change over the year 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:awh), we can see that Indonesia Average working hours have fluctuated with a significant drop in the mid 1980s and have been increasing for the next few years. While Australia has an overall decreasing trend overtime. 
+Figure \@ref(fig:awh) and figure \@ref(fig:gdp) show how the Average annual working hours and the GDP change over the years 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:awh), we can see that Indonesia's Average working hours have fluctuated with a significant drop in the mid-1980s and have been increasing for the next few years. In comparison, Australia has an overall decreasing trend over time. 
 
 ```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita", fig.height= 4}
 au_idn %>% 
@@ -101,7 +101,7 @@ au_idn %>%
   theme_bw()
 ```
 
-The figure \@ref(fig:gdp) demonstrates that Australia's GDP has risen significantly, while Indonesia's GDP just had a slight increase with a small drop in the late 1990s. From these figures we can see that in spite of  working less hours over the years, Australia's GDP kept increasing while Indonesia's GDP did not grow as much despite having more average working hours.
+The figure \@ref(fig:gdp) demonstrates that Australia's GDP has risen significantly, while Indonesia's GDP just slightly increased with a slight drop in the late 1990s. From these figures, we can see that despite working fewer hours over the years, Australia's GDP kept increasing while Indonesia's GDP did not grow as much despite having more average working hours.
 
 
 ```{r mean, echo=FALSE}
@@ -135,6 +135,6 @@ au_idn %>%
   theme_bw()
 ```
 
-Furthermore, looking at the comparison table \@ref(tab:mean) here, we can see that on average from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is 7 times higher compared  to Indonesia's GDP. Therefore we can conclude that between Australia and Indonesia there is an inverse correlation as seen in figure \@ref(fig:scatter), where less Average working hours contributed to higher GDP while more working hours resulted in a lower overall GDP.
+Furthermore, looking at the comparison table \@ref(tab:mean) here, we can see that on average, from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is seven times higher than Indonesia's GDP. Therefore, we can conclude an inverse correlation between Australia and Indonesia's average working hours and GDP per capita, as seen in figure \@ref(fig:scatter), in which fewer Average working hours contributed to higher GDP. In comparison, more working hours resulted in a lower overall GDP.
 
 \clearpage
