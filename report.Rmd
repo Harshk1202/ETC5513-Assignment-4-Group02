@@ -240,9 +240,7 @@ Therefore, this section chooses these two different income group countries to ex
 
 ## Analysis
 
-### Process Data
-
-```{r}
+```{r message=FALSE, echo=FALSE, warning=FALSE}
 sec3_data <- Analysis_Data %>%
   filter(Entity %in% c("France", "Mexico"),
          Year >= 1970) %>%
@@ -252,18 +250,17 @@ sec3_data <- Analysis_Data %>%
          Population = 'Population (historical estimates)')
 ```
 
-### The Development of Average Working Hours and GDP with the Year Changes
-
 ```{r timechanges, message=FALSE, echo=FALSE, warning=FALSE, fig.cap="The Development of Average Working Hours and GDP with the Year Changes", fig.align='center'}
 sec3_figure <- sec3_data %>%
   pivot_longer(cols = "Ave_working_hours":"GDP",
                names_to = "type",
                values_to = "workinghours_or_GDP") 
 
-  ggplot(sec3_figure) +
-  geom_line(aes(x = Year,
-                y = workinghours_or_GDP,
-                color = Country)) +
+sec3_figure %>%
+  ggplot(aes(x = Year,
+             y = workinghours_or_GDP,
+             color = Country)) +
+  geom_line() +
   facet_wrap(~type, scales = "free_y")+
   theme_bw()
 ```
@@ -272,13 +269,13 @@ From the Figure \@ref(fig:timechanges), we can observed a overall development of
 
 These two parts show an opposite trend, so we will further compare GDP and average working hours to observe the relationship between these two variables more intuitively.
 
-### The Comparison between Average Working Hours and GDP 
-
 ```{r relationship, message=FALSE, echo=FALSE, warning=FALSE, fig.cap="The Camparation between Average Working Hours and GDP", fig.align='center'}
-ggplot(sec3_data) +
-  geom_line(aes(x = GDP,
-                y = Ave_working_hours,
-                color = Country)) +
+sec3_data %>%
+  ggplot(aes(x = GDP,
+           y = Ave_working_hours,
+           color = Country)) +
+  geom_point() +
+  geom_smooth()+
   theme_bw()
 ```
 
@@ -286,9 +283,9 @@ The Figure \@ref(fig:relationship) shows the relationship between the average an
 
 In general, we can observe that the per capita working hours in France and Mexico show a declining trend as GDP increases. As a result, working hours in these two different types of countries declined as GDP grew.
 
-### The Comparison of Average Working Hours and GDP between France and Mexico
+\clearpage
 
-```{r}
+```{r message=FALSE, echo=FALSE, warning=FALSE}
 sec3_table <- sec3_data %>%
   group_by(Country) %>%
   summarise(Working_hours = round(mean(Ave_working_hours, na.rm = TRUE),0),
