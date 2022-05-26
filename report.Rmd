@@ -158,6 +158,82 @@ The trends of GDP in China and USA in Figure\@ref(fig:Figure1) shows that GDP pe
 
 Finally, I compared the relationship between average annual hours worked and GDP per capita. In The United States Figure\@ref(fig:Figure4), as the annual work hours going down the trend of GDP per capita will going up. But for China Figure\@ref(fig:Figure3) is completely opposite. When the annual work hours going up, The GDP per capital will also going up. I think it due to the high-speed development of economic in China. Furthermore, @BANISTER200521 also mentioned that in 21 of the 24 years from 1978 to 2001, China's per capita GDP grew in real terms between 6% and 14%. China's per capita living standards (measured by real GDP per capita) nearly quadrupled between 1978 and 2001.
 
+
+\section*{Country China and USA}
+
+## Background
+
+@reference1 shows that France is a developed country. @reference2 indicates that Mexico is a developing country.
+
+Therefore, this section chooses these two different income group countries to explore the relationship between working hours and GDP. And the report will be analyzed from two perspectives. On the one hand, the report will observe the developing trend with the changes of working hours and GDP within each country. On the other hand, it will also compare these two diffrent counties to calculate their average working time and GDP.
+
+## Analysis
+
+### Process Data
+
+```{r}
+sec3_data <- Analysis_Data %>%
+  filter(Entity %in% c("France", "Mexico"),
+         Year >= 1970) %>%
+  rename(Country = Entity,
+         Ave_working_hours = 'Average annual hours worked by persons engaged (avh) (PWT 9.1 (2019))',
+         GDP = 'Output-side real GDP per capita (gdppc_o) (PWT 9.1 (2019))',
+         Population = 'Population (historical estimates)')
+```
+
+### The Development of Average Working Hours and GDP with the Year Changes
+
+```{r timechanges, message=FALSE, echo=FALSE, warning=FALSE, fig.cap="The Development of Average Working Hours and GDP with the Year Changes", fig.align='center'}
+sec3_figure <- sec3_data %>%
+  pivot_longer(cols = "Ave_working_hours":"GDP",
+               names_to = "type",
+               values_to = "workinghours_or_GDP") 
+
+  ggplot(sec3_figure) +
+  geom_line(aes(x = Year,
+                y = workinghours_or_GDP,
+                color = Country)) +
+  facet_wrap(~type, scales = "free_y")+
+  theme_bw()
+```
+
+From the Figure \@ref(fig:timechanges), we can observed a overall development of average working hours and GDP with the changes of year. The left part figure shows that the average annual hours worked by persons are guadually decreased in both of two countries from the year of 1970 to 2017. The right part figure indicates that the overall trend of the output-side real GDP per capita  shows a continuous rise in the same period.
+
+These two parts show an opposite trend, so we will further compare GDP and average working hours to observe the relationship between these two variables more intuitively.
+
+### The Camparation between Average Working Hours and GDP 
+
+```{r relationship, message=FALSE, echo=FALSE, warning=FALSE, fig.cap="The Camparation between Average Working Hours and GDP", fig.align='center'}
+ggplot(sec3_data) +
+  geom_line(aes(x = GDP,
+                y = Ave_working_hours,
+                color = Country)) +
+  theme_bw()
+```
+
+The Figure \@ref(fig:relationship) shows the relationship between the average annual hours worked by persons and the output-side real GDP per capita. 
+
+In general, we can observe that the per capita working hours in France and Mexico show a declining trend as GDP increases. As a result, working hours in these two different types of countries declined as GDP grew.
+
+### The Comparation of Average Working Hours and GDP between France and Mexico
+```{r}
+sec3_table <- sec3_data %>%
+  group_by(Country) %>%
+  summarise(Working_hours = round(mean(Ave_working_hours, na.rm = TRUE),0),
+            GDP = round(mean(GDP, na.rm = TRUE),0))
+```
+
+```{r comparation, message=FALSE, echo=FALSE, warning=FALSE, fig.align='center'}
+kable(sec3_table, booktabs = TRUE, caption = "The Comparation of Average Working Hours and GDP between France and Mexico")
+```
+
+The Table \@ref(tab:comparation) above compares the the average annual hours worked by persons and the average output-side real GDP per capita between France and Mexico.
+
+And we can find from the table that the France has a lower working hours and a higher GDP compared with Mexico with 1,640 hours and 26,998 dollors respectively. And people in Mexico work around 2,297 hours and GDP per capita is around 12,339 dollors.
+
+Therefore, it can be concluded from these two countries that while average earnings have risen, hours worked have fallen. And working hours tend to decrease as countries become richer.
+
+
 # INDIA and UNITED KINGDOM
 
 For **India and United Kingdom**, GDP and Annual working hours data from 1970 to 2017, lets calculate average of GDP and Working hours from 1970 to 2017 in \@ref(tab:TableAvg)
