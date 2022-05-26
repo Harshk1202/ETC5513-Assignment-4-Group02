@@ -72,6 +72,15 @@
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -335,22 +344,189 @@
 \begin{document}
 \titlepage
 
+\section*{Country China and USA}
+
+\hypertarget{read-data}{%
+\subsection{Read data}\label{read-data}}
+
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{options}\NormalTok{(}\AttributeTok{scipen =} \DecValTok{200}\NormalTok{)}
 \NormalTok{Analysis\_Data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"Data/Assignment\_data.csv"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{data-preprocessing}{%
+\subsection{Data preprocessing}\label{data-preprocessing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# filtering data from 1970 to 2017 for China and the United States}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ Analysis\_Data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Entity }\SpecialCharTok{\%in\%} \FunctionTok{c}\NormalTok{(}\StringTok{"China"}\NormalTok{,}\StringTok{"United States"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(Year}\SpecialCharTok{\textgreater{}=}\DecValTok{1970} \SpecialCharTok{\&}\NormalTok{ Year}\SpecialCharTok{\textless{}=}\DecValTok{2017}\NormalTok{)}
+\FunctionTok{dim}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
 \begin{verbatim}
-## Rows: 53908 Columns: 7
-## -- Column specification --------------------------------------------------------
-## Delimiter: ","
-## chr (3): Entity, Code, Continent
-## dbl (4): Year, Average annual hours worked by persons engaged (avh) (PWT 9.1...
-## 
-## i Use `spec()` to retrieve the full column specification for this data.
-## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## [1] 96  7
 \end{verbatim}
+
+\hypertarget{overall-descriptive-statistical-analysis}{%
+\subsection{Overall descriptive statistical analysis}\label{overall-descriptive-statistical-analysis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{rename}\NormalTok{(}\AttributeTok{Average.annual.hours.worked=}
+        \StringTok{"Average annual hours worked by persons engaged (avh) (PWT 9.1 (2019))"}\NormalTok{,}
+        \AttributeTok{GDP.per.capita=}\StringTok{"Output{-}side real GDP per capita (gdppc\_o) (PWT 9.1 (2019))"}\NormalTok{,}
+        \AttributeTok{Population=}\StringTok{"Population (historical estimates)"}\NormalTok{,}
+        \AttributeTok{Country=}\NormalTok{Entity) }
+\NormalTok{ overall }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(Country) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{summarise\_at}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Average.annual.hours.worked"}\NormalTok{,}\StringTok{"GDP.per.capita"}\NormalTok{,}\StringTok{"Population"}\NormalTok{),}
+                 \FunctionTok{list}\NormalTok{(}\AttributeTok{Minimum =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{min}\NormalTok{(.,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{), }
+                      \AttributeTok{Median =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{median}\NormalTok{(.,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{), }
+                      \AttributeTok{Mean =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{mean}\NormalTok{(.,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{),}
+                      \AttributeTok{Maximum =} \SpecialCharTok{\textasciitilde{}}\FunctionTok{max}\NormalTok{(.,}\AttributeTok{na.rm=}\ConstantTok{TRUE}\NormalTok{))) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{Country, }\AttributeTok{names\_sep =}\StringTok{"\_"}\NormalTok{,}
+                 \AttributeTok{names\_to =} \FunctionTok{c}\NormalTok{(}\StringTok{"Variable"}\NormalTok{, }\StringTok{".value"}\NormalTok{))}\SpecialCharTok{\%\textgreater{}\%}
+   \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Variable=}\FunctionTok{ifelse}\NormalTok{(Variable}\SpecialCharTok{==}\StringTok{"Average.annual.hours.worked"}\NormalTok{,}
+                          \StringTok{"Hours.worked"}\NormalTok{,Variable))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(overall, }\AttributeTok{digits =} \DecValTok{2}\NormalTok{,}
+    \AttributeTok{caption =} \StringTok{"Descriptive statistical analysis of China and the United States"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:Table1}Descriptive statistical analysis of China and the United States}
+\centering
+\begin{tabular}[t]{l|l|r|r|r|r}
+\hline
+Country & Variable & Minimum & Median & Mean & Maximum\\
+\hline
+China & Hours.worked & 1969.39 & 1985.48 & 2049.81 & 2192.35\\
+\hline
+China & GDP.per.capita & 1394.16 & 3127.29 & 4574.76 & 13042.65\\
+\hline
+China & Population & 827601385.00 & 1224418542.50 & 1179497606.85 & 1421021794.00\\
+\hline
+United States & Hours.worked & 1729.96 & 1795.14 & 1799.27 & 1891.41\\
+\hline
+United States & GDP.per.capita & 23285.58 & 37978.02 & 39046.42 & 54794.76\\
+\hline
+United States & Population & 209513340.00 & 260886667.00 & 264561185.08 & 325084758.00\\
+\hline
+\end{tabular}
+\end{table}
+
+\hypertarget{trends-in-average-annual-hours-worked-and-gdp-per-capita}{%
+\subsection{Trends in average annual hours worked and GDP per capita}\label{trends-in-average-annual-hours-worked-and-gdp-per-capita}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data,}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year,}\AttributeTok{y=}\NormalTok{GDP.per.capita,}
+                           \AttributeTok{color=}\NormalTok{Country,}\AttributeTok{group=}\NormalTok{Country)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =}\StringTok{"GDP per capita"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"Source: World Bank data base"}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{report_files/figure-latex/Figure1-1.pdf}
+\caption{\label{fig:Figure1}Trends in GDP per capita}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(data,}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Year,}\AttributeTok{y=}\NormalTok{Average.annual.hours.worked,}
+                           \AttributeTok{color=}\NormalTok{Country,}\AttributeTok{group=}\NormalTok{Country)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{y =}\StringTok{"Average annual hours worked"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"Source: World Bank data base"}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{report_files/figure-latex/Figure2-1.pdf}
+\caption{\label{fig:Figure2}Trends in average annual hours worked}
+\end{figure}
+
+\hypertarget{the-relationship-between-average-annual-hours-worked-and-gdp}{%
+\subsection{The relationship between average annual hours worked and GDP}\label{the-relationship-between-average-annual-hours-worked-and-gdp}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(Country}\SpecialCharTok{==}\StringTok{"China"}\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Average.annual.hours.worked,}
+                          \AttributeTok{y=}\NormalTok{GDP.per.capita))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{stat\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =}\StringTok{"Average annual hours worked"}\NormalTok{, }
+       \AttributeTok{y =}\StringTok{"GDP per capita"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"Source: World Bank data base"}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{report_files/figure-latex/Figure3-1.pdf}
+\caption{\label{fig:Figure3}Relationship between average annual hours worked and GDP (China)}
+\end{figure}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(Country}\SpecialCharTok{==}\StringTok{"United States"}\NormalTok{)}\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Average.annual.hours.worked,}
+                          \AttributeTok{y=}\NormalTok{GDP.per.capita))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+} 
+    \FunctionTok{stat\_smooth}\NormalTok{(}\AttributeTok{method=}\NormalTok{lm)}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =}\StringTok{"Average annual hours worked"}\NormalTok{, }
+       \AttributeTok{y =}\StringTok{"GDP per capita"}\NormalTok{, }
+       \AttributeTok{caption =} \StringTok{"Source: World Bank data base"}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+\centering
+\includegraphics{report_files/figure-latex/Figure4-1.pdf}
+\caption{\label{fig:Figure4}Relationship between average annual hours worked and GDP (United States)}
+\end{figure}
+
+\hypertarget{conclusion}{%
+\subsection{Conclusion}\label{conclusion}}
+
+In this section, I analyzed data from China and the United States. First, I filtered out the data for these two countries from 1970 to 2017. Then I performed an overall descriptive statistical analysis of the primary variables (Average.annual.hours.worked, GDP.per.capita and Population).
+
+As shown in Table1\ref{tab:Table1}, the mean or median population in China is significantly larger than in the United States. But in GDP per capita, China is significantly less than the United States. And the average annual hours worked is slightly higher in China than in the United States.
+
+The trends of GDP in China and USA in Figure\ref{fig:Figure1} shows that GDP per capita in both China and the U.S. is rising year by year, but the upward trend is more obvious in the United States. And for the average annual hours worked shown in Figure\ref{fig:Figure2}, I found a clear upward trend of average annual hours worked in China, while the United States has fluctuated but declined slightly overall.
+
+Finally, I compared the relationship between average annual hours worked and GDP per capita in China and the United States. In China, the two variables showed a negative correlation in Figure\ref{fig:Figure3}, while in the United States of Figure\ref{fig:Figure4}, average annual hours worked decreases as GDP per capita rises.
+
+\hypertarget{reference}{%
+\subsection{Reference}\label{reference}}
+
+{[}1{]} Wickham H, Averick M, Bryan J, et al.~Welcome to the Tidyverse{[}J{]}. Journal of open source software, 2019, 4(43): 1686.
+
+{[}2{]} Wickham H, Chang W, Wickham M H. Package `ggplot2'{[}J{]}. Create elegant data visualisations using the grammar of graphics. Version, 2016, 2(1): 1-189.
 
 \printbibliography
 
