@@ -1,5 +1,5 @@
 ---
-title: "Analysis of CO2 Emission and Energy Consumption around the world"
+title: "Analysis of Average Working Hours and GDP around the world from 1970 - 2017"
 author:
 - familyname: Wu
   othernames: Zhenyu
@@ -44,13 +44,13 @@ output:
     toc: false
 ---
 
-```{r , echo = FALSE, message = FALSE, warning = FALSE}
+```{r echo = FALSE, message = FALSE, warning = FALSE}
 # Libraries
 library(tidyverse)
 library(readr)
 library(kableExtra)
 library(bookdown)
-
+library(scales)
 ```
 
 \section*{Introduction}
@@ -68,16 +68,16 @@ This report will compare different countries to analyze the relationship between
 The first section will compare the countries between China and USA to analyze the relationship. The second section will choose the India and United Kingdom. Then we are going to see the country of France and Mexico because they are in two different income groups in the world. And the last part we will have a comparison between Indonesia and Australia.
 
 
-\section*{Country China and USA}
+\section*{China and USA}
 
 ## Read data
 
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
+
 Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
+
 ```
-
-
 
 
 ```{r warning=FALSE, message=FALSE}
@@ -173,7 +173,7 @@ The trends of GDP in China and USA in Figure\@ref(fig:Figure1) shows that GDP pe
 Finally, I compared the relationship between average annual hours worked and GDP per capita. In The United States Figure\@ref(fig:Figure4), as the annual work hours going down the trend of GDP per capita will going up. But for China Figure\@ref(fig:Figure3) is completely opposite. When the annual work hours going up, The GDP per capital will also going up. I think it due to the high-speed development of economic in China. Furthermore, @BANISTER200521 also mentioned that in 21 of the 24 years from 1978 to 2001, China's per capita GDP grew in real terms between 6% and 14%. China's per capita living standards (measured by real GDP per capita) nearly quadrupled between 1978 and 2001.
 
 
-# INDIA and UNITED KINGDOM
+\section*{India and United Kingdom}
 
 For **India and United Kingdom**, GDP and Annual working hours data from 1970 to 2017, lets calculate average of GDP and Working hours from 1970 to 2017 in \@ref(tab:TableAvg)
 
@@ -226,7 +226,7 @@ From the above Figure \@ref(fig:FigTrend), it is clear that in India, the Averag
 To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article @article2 which discusses about the macroeconomics factors which affect the GDP growth.
 
 
-\section*{Country France and Mexico}
+\section*{France and Mexico}
 
 ## Background
 
@@ -268,7 +268,7 @@ From the Figure \@ref(fig:timechanges), we can observed a overall development of
 
 These two parts show an opposite trend, so we will further compare GDP and average working hours to observe the relationship between these two variables more intuitively.
 
-### The Camparation between Average Working Hours and GDP 
+### The Comparison between Average Working Hours and GDP 
 
 ```{r relationship, message=FALSE, echo=FALSE, warning=FALSE, fig.cap="The Camparation between Average Working Hours and GDP", fig.align='center'}
 ggplot(sec3_data) +
@@ -282,7 +282,7 @@ The Figure \@ref(fig:relationship) shows the relationship between the average an
 
 In general, we can observe that the per capita working hours in France and Mexico show a declining trend as GDP increases. As a result, working hours in these two different types of countries declined as GDP grew.
 
-### The Comparation of Average Working Hours and GDP between France and Mexico
+### The Comparison of Average Working Hours and GDP between France and Mexico
 
 ```{r}
 sec3_table <- sec3_data %>%
@@ -301,10 +301,94 @@ And we can find from the table that the France has a lower working hours and a h
 
 Therefore, it can be concluded from these two countries that while average earnings have risen, hours worked have fallen. And working hours tend to decrease as countries become richer.
 
+\section*{Australia and Indonesia}
 
-# COnclusion
+According to @owidworkinghours, in over 100 years, the average working hours have drastically decreased for many countries. However, around the world, there are still significant gaps between countries where poorer countries with lower GDP (Gross domestic product) tend to work much more than workers in wealthier countries with higher GDP. Hence, this section will look at mainly two countries: **Australia** (having a higher GDP) and **Indonesia** (which has a lower GDP).
 
-For this study, we took 8 countries ( China, USA, India, UK, France, Mexico, Australia & Indonesia) and analysed their respective GDP growth with respect to Hours of Work which each person does on an average in one year. After the analyzation, we found that GDP growth does not solely depend on Working hours and also, people in richer countries work for lesser number of hours. There can be many factors for this like population and how efficiently people are working and what are the resources available for people in rich countries with the help of which they are able to complete more work in less number of hours.  
+```{r au_idn, echo=FALSE}
+au_idn <- Analysis_Data %>%
+  rename(Country = "Entity", 
+         awh = "Average annual hours worked by persons engaged (avh) (PWT 9.1 (2019))",
+         gdp = "Output-side real GDP per capita (gdppc_o) (PWT 9.1 (2019))") %>%
+  select(Country, Year, awh, gdp) %>%
+  filter(Country %in% c("Australia", "Indonesia"), 
+         Year >=1970 & Year <=2017)
+```
+
+```{r awh, echo=FALSE, fig.cap="Comparison of Average annual hours worked by workers in Australia and Indonesia", fig.height= 6}
+au_idn %>% 
+  ggplot(aes(x = Year, 
+             y = awh, 
+             color = Country)) +
+  geom_line() +
+    labs(x = "Year",
+         y = "hours",
+         title = "Average annual hours worked by workers from year 1970-2017",
+         caption = "Data from ourworldindata.org (2020)") +
+  scale_y_continuous(labels = label_number(big.mark = ",")) +
+  theme_bw()
+```
+
+Figure \@ref(fig:awh) and figure \@ref(fig:gdp) show how the Average annual working hours and the GDP change over the years 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:awh), we can see that Indonesia's Average working hours have fluctuated with a significant drop in the mid-1980s and have been increasing for the next few years. In comparison, Australia has an overall decreasing trend over time. 
+
+\clearpage
+
+```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita", fig.height= 6}
+au_idn %>% 
+  ggplot(aes(x = Year, 
+             y = gdp, 
+             color = Country)) +
+  geom_line()+
+    labs(x = "Year",
+         y = "USD",
+         title = "GDP per capita from year 1970-2017" ,
+         caption = "Data from ourworldindata.org (2020)")+
+  scale_y_continuous(labels = label_number(prefix="$", big.mark = ",")) +
+  theme_bw()
+```
+
+The figure \@ref(fig:gdp) demonstrates that Australia's GDP has risen significantly, while Indonesia's GDP just slightly increased with a slight drop in the late 1990s. From these figures, we can see that despite working fewer hours over the years, Australia's GDP kept increasing while Indonesia's GDP did not grow as much despite having more average working hours.
+
+```{r mean, echo=FALSE}
+au_idn %>% 
+    group_by(Country) %>%
+    summarise(avg_avh = mean(awh),
+              avg_gdp = mean(gdp)) %>%
+  kable(col.names = c("Country", 
+                      "Average of the Average Annual Working Hours (hours)", 
+                      "Average of GDP per capita (USD)"),
+        caption = "The Comparation of Average Annual Working Hours and GDP between Australia and Indonesia",
+        digits = 2,
+        align = "lcr") %>%
+  kable_styling(full_width = F, 
+                bootstrap_options = c("striped", "hover", "condensed"), latex_options = "hold_position")
+```
+
+\clearpage
+
+```{r scatter, echo = FALSE, fig.cap = 'Inverse Correlation between Average Annual Working Hours and GDP per capita in Australia and Indonesia', message=FALSE, fig.height= 6}
+au_idn %>% 
+  ggplot(aes(x = awh, 
+             y = gdp, 
+             color = Country)) +
+  geom_point()+
+  geom_smooth()+
+    labs(x = "Average Annual Working Hours (hours)",
+         y = "GDP per capita (USD)",
+         title = "Average Annual Working Hours VS GDP per capita from year 1970-2017" ,
+         caption = "Data from ourworldindata.org (2020)")+
+  scale_y_continuous(labels = label_number(prefix="$", big.mark = ",")) +
+  scale_x_continuous(labels = label_number(big.mark = ",")) +
+  theme_bw()
+```
+
+Furthermore, looking at the comparison table \@ref(tab:mean) here, we can see that on average, from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is seven times higher than Indonesia's GDP. Therefore, we can conclude an inverse correlation between Australia and Indonesia's average working hours and GDP per capita, as seen in figure \@ref(fig:scatter), in which fewer Average working hours contributed to higher GDP. In comparison, more working hours resulted in a lower overall GDP.
+
+\clearpage
 
 
-# References
+# Conclusion
+
+For this study, we took 8 countries ( China, USA, India, UK, France, Mexico, Australia & Indonesia) and analysed their respective GDP growth with respect to Hours of Work which each person does on an average in one year. After the analysis, we found that GDP growth does not solely depend on Working hours and also, people in richer countries work for lesser number of hours. There can be many factors for this like population and how efficiently people are working and what are the resources available for people in rich countries with the help of which they are able to complete more work in less number of hours.  
+
+
