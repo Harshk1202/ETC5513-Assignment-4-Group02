@@ -53,8 +53,59 @@ library(bookdown)
 
 ```
 
-```{r}
+```{r echo=FALSE, message=FALSE, warning=FALSE}
 Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 ```
 
+# INDIA and UNITED KINGDOM
+
+For **India and United Kingdom**, GDP and Annual working hours data from 1970 to 2017, lets calculate average of GDP and Working hours from 1970 to 2017 in \@ref(tab:TableAvg)
+
+
+```{r TableAvg, message=FALSE, echo=FALSE, warning=FALSE}
+Ind_UK_Data <- Analysis_Data %>%
+    filter(Entity %in% c("India", "United Kingdom"), Year >= 1970, Year <= 2017) %>%
+    rename(Country = "Entity",
+           Avg_Annual_Working_Hours = "Average annual hours worked by persons engaged (avh) (PWT 9.1 (2019))", 
+           GDP = "Output-side real GDP per capita (gdppc_o) (PWT 9.1 (2019))", 
+           Population = "Population (historical estimates)")
+
+Avg_GDP_WH <- Ind_UK_Data %>%
+    group_by(Country) %>%
+    summarise(avg_GDP = mean(GDP), avg_working_hrs = mean(Avg_Annual_Working_Hours))
+
+kable(Avg_GDP_WH, caption = "Average GDP and Working hours of India and United Kingdrom from 1970 to 2017", align = "c") %>%
+    kable_classic_2(full_width = F) %>%
+   kable_styling( position = "center",latex_options = "hold_position")
+```
+
+
+From the above table \@ref(tab:TableAvg), we see that despite India has more average working hours than United Kingdom, the average vale of GDP of United Kingdom is very high than India which means, for India and United Kingdom, GDP does not depend on Working hours solely, there are other factors as well.
+
+
+To understand this, let's create a figure and see the trend in GDP and average working hours in India and United Kingdom.
+
+```{r FigTrend, message=FALSE, echo=FALSE, warning=FALSE, fig.cap="Average working hours and GDP of India and UK from 1970 to 2017", fig.align='center'}
+p1 <- ggplot(Ind_UK_Data, aes(x = Year, 
+                        y = Avg_Annual_Working_Hours,
+                        color = Country)) + geom_line() +
+    ylab("Avg Work Hrs (Annual)") + labs(title = "Avg Work Hrs of India and UK from 1970 to 2017") + theme_bw()
+
+
+
+p2 <- ggplot(Ind_UK_Data, aes(x = Year, 
+                        y = GDP,
+                        color = Country)) + geom_line() + 
+    labs(title = "GDP each year of India and UK from 1970 to 2017") + theme_bw()
+
+
+gridExtra::grid.arrange(p1,p2, nrow=2)
+
+```
+
+
+
+From the above Figure \@ref(fig:FigTrend), it is clear that in India, the Average working hours and GDP both are increasing but not as compared to UK. On the other hand, in UK, Average working hours are decreasing continuously while GDP is going up. Therefore, GDP does not solely depend on working hours or we can say that, in richer country, UK, people work for lesser number of hours as compared to India with low GDP. In India, the population has increased to a great extent and in UK, the increase has not been that much, therefore this huge increase in population might be another reason for India's falling short in GDP growth.
+
+To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article @article which discusses about the macroeconomics factors which affect the GDP growth.
 
