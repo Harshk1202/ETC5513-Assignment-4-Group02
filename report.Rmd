@@ -59,7 +59,7 @@ Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 
 \section*{Australia and Indonesia}
 
-According to @owidworkinghours, in over 100 years the average working hours has drastically decreased for many countries. However, around the world there are still large gaps between countries where in poorer countries, with lower GDP, tend to work much more than workers in richer countries, with higher GDP.
+According to @owidworkinghours, in over 100 years the average working hours has drastically decreased for many countries. However, around the world there are still large gaps between countries where in poorer countries, with lower GDP (Gross domestic product), tend to work much more than workers in richer countries, with higher GDP. Hence, in this section we will look at particularly two countries: Australia (having a higher GDP) and Indonesia (which have a lower GDP).
 
 ```{r au_idn, echo=FALSE}
 au_idn <- Analysis_Data %>%
@@ -85,7 +85,6 @@ au_idn %>%
   theme_bw()
 ```
 
-
 The figure \@ref(fig:avh) and figure \@ref(fig:gdp) that show how the Average annual working hours and the GDP change over the year 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:avh), we can see that Indonesia Average working hours have fluctuated with a significant drop in the mid 1980s and have been increasing for the next few years. While Australia has an overall decreasing trend overtime. 
 
 ```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita", fig.height= 4}
@@ -101,7 +100,6 @@ au_idn %>%
   scale_y_continuous(labels = label_number(prefix="$", big.mark = ",")) +
   theme_bw()
 ```
-
 
 The figure \@ref(fig:gdp) demonstrates that Australia's GDP has risen significantly, while Indonesia's GDP just had a slight increase with a small drop in the late 1990s. From these figures we can see that in spite of  working less hours over the years, Australia's GDP kept increasing while Indonesia's GDP did not grow as much despite having more average working hours.
 
@@ -121,7 +119,7 @@ au_idn %>%
                 bootstrap_options = c("striped", "hover", "condensed"), latex_options = "hold_position")
 ```
 
-```{r scatter, echo = FALSE, warning=FALSE, message=FALSE, fig.cap=}
+```{r scatter, echo = FALSE, warning=FALSE, message=FALSE, fig.cap=' Inverse Correlation between Average Annual Working Hours and  GDP per capita in Australia and Indonesia'}
 au_idn %>% 
   ggplot(aes(x = awh, 
              y = gdp, 
