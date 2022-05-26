@@ -59,6 +59,8 @@ Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
 
 \section*{Australia and Indonesia}
 
+According to @owidworkinghours, in over 100 years the average working hours has drastically decreased for many countries. However, around the world there are still large gaps between countries where in poorer countries, with lower GDP, tend to work much more than workers in richer countries, with higher GDP.
+
 ```{r au_idn, echo=FALSE}
 au_idn <- Analysis_Data %>%
   rename(Country = "Entity", 
