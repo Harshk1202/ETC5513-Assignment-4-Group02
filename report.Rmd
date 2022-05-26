@@ -85,7 +85,7 @@ au_idn %>%
   theme_bw()
 ```
 
-The figure \@ref(fig:avh) and figure \@ref(fig:gdp) that show how the Average annual working hours and the GDP change over the year 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:avh), we can see that Indonesia Average working hours have fluctuated with a significant drop in the mid 1980s and have been increasing for the next few years. While Australia has an overall decreasing trend overtime. 
+The figure \@ref(fig:awh) and figure \@ref(fig:gdp) that show how the Average annual working hours and the GDP change over the year 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:awh), we can see that Indonesia Average working hours have fluctuated with a significant drop in the mid 1980s and have been increasing for the next few years. While Australia has an overall decreasing trend overtime. 
 
 ```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita", fig.height= 4}
 au_idn %>% 
@@ -119,7 +119,7 @@ au_idn %>%
                 bootstrap_options = c("striped", "hover", "condensed"), latex_options = "hold_position")
 ```
 
-```{r scatter, echo = FALSE, warning=FALSE, message=FALSE, fig.cap=' Inverse Correlation between Average Annual Working Hours and  GDP per capita in Australia and Indonesia'}
+```{r scatter, echo = FALSE, fig.cap = 'Inverse Correlation between Average Annual Working Hours and GDP per capita in Australia and Indonesia', message=FALSE, fig.height= 4}
 au_idn %>% 
   ggplot(aes(x = awh, 
              y = gdp, 
@@ -128,13 +128,13 @@ au_idn %>%
   geom_smooth()+
     labs(x = "Average Annual Working Hours (hours)",
          y = "GDP per capita (USD)",
-         title = "GDP per capita from year 1970-2017" ,
+         title = "Average Annual Working Hours VS GDP per capita from year 1970-2017" ,
          caption = "Data from ourworldindata.org (2020)")+
   scale_y_continuous(labels = label_number(prefix="$", big.mark = ",")) +
-  scale_x_continuous(labels = label_number(big.mark = ","))
+  scale_x_continuous(labels = label_number(big.mark = ",")) +
   theme_bw()
 ```
 
-Furthermore, looking at the comparison table \@ref(tab:mean) here, we can see that on average from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is 7 times higher compared  to Indonesia's GDP. Therefore we can conclude that between Australia and Indonesia there is an inverse correlation as seen in \@ref(fig:scatter), where less Average working hours contributed to higher GDP while more working hours resulted in a lower overall GDP.
+Furthermore, looking at the comparison table \@ref(tab:mean) here, we can see that on average from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is 7 times higher compared  to Indonesia's GDP. Therefore we can conclude that between Australia and Indonesia there is an inverse correlation as seen in figure \@ref(fig:scatter), where less Average working hours contributed to higher GDP while more working hours resulted in a lower overall GDP.
 
 \clearpage
