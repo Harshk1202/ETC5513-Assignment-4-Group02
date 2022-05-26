@@ -71,7 +71,7 @@ au_idn <- Analysis_Data %>%
          Year >=1970 & Year <=2017)
 ```
 
-```{r awh, echo=FALSE, fig.cap="Comparison of Average annual hours worked by workers in Australia and Indonesia", fig.height= 4}
+```{r awh, echo=FALSE, fig.cap="Comparison of Average annual hours worked by workers in Australia and Indonesia", fig.height= 6}
 au_idn %>% 
   ggplot(aes(x = Year, 
              y = awh, 
@@ -87,7 +87,9 @@ au_idn %>%
 
 Figure \@ref(fig:awh) and figure \@ref(fig:gdp) show how the Average annual working hours and the GDP change over the years 1970 to 2017 in Australia and Indonesia. From figure \@ref(fig:awh), we can see that Indonesia's Average working hours have fluctuated with a significant drop in the mid-1980s and have been increasing for the next few years. In comparison, Australia has an overall decreasing trend over time. 
 
-```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita", fig.height= 4}
+\clearpage
+
+```{r gdp, echo=FALSE, fig.cap="Comparison of Australia's and Indoensia's GDP per capita", fig.height= 6}
 au_idn %>% 
   ggplot(aes(x = Year, 
              y = gdp, 
@@ -102,7 +104,6 @@ au_idn %>%
 ```
 
 The figure \@ref(fig:gdp) demonstrates that Australia's GDP has risen significantly, while Indonesia's GDP just slightly increased with a slight drop in the late 1990s. From these figures, we can see that despite working fewer hours over the years, Australia's GDP kept increasing while Indonesia's GDP did not grow as much despite having more average working hours.
-
 
 ```{r mean, echo=FALSE}
 au_idn %>% 
@@ -119,7 +120,9 @@ au_idn %>%
                 bootstrap_options = c("striped", "hover", "condensed"), latex_options = "hold_position")
 ```
 
-```{r scatter, echo = FALSE, fig.cap = 'Inverse Correlation between Average Annual Working Hours and GDP per capita in Australia and Indonesia', message=FALSE, fig.height= 4}
+\clearpage
+
+```{r scatter, echo = FALSE, fig.cap = 'Inverse Correlation between Average Annual Working Hours and GDP per capita in Australia and Indonesia', message=FALSE, fig.height= 6}
 au_idn %>% 
   ggplot(aes(x = awh, 
              y = gdp, 
