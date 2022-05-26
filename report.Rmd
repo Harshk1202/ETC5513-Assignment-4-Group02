@@ -208,12 +208,11 @@ gridExtra::grid.arrange(p1,p2, nrow=2)
 
 From the above Figure \@ref(fig:FigTrend), it is clear that in India, the Average working hours and GDP both are increasing but not as compared to UK. On the other hand, in UK, Average working hours are decreasing continuously while GDP is going up. Therefore, GDP does not solely depend on working hours or we can say that, in richer country, UK, people work for lesser number of hours as compared to India with low GDP. In India, the population has increased to a great extent and in UK, the increase has not been that much, therefore this huge increase in population might be another reason for India's falling short in GDP growth.
 
-To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article @article which discusses about the macroeconomics factors which affect the GDP growth.
+To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article @article2 which discusses about the macroeconomics factors which affect the GDP growth.
 
 # COnclusion
 
-## Reference
+For this study, we took 8 countries ( China, USA, India, UK, France, Mexico, Australia & Indonesia) and analysed their respective GDP growth with respect to Hours of Work which each person does on an average in one year. After the analyzation, we found that GDP growth does not solely depend on Working hours and also, people in richer countries work for lesser number of hours. There can be many factors for this like population and how efficiently people are working and what are the resources available for people in rich countries with the help of which they are able to complete more work in less number of hours.  
 
-[1] Wickham H, Averick M, Bryan J, et al. Welcome to the Tidyverse[J]. Journal of open source software, 2019, 4(43): 1686.
 
-[2] Wickham H, Chang W, Wickham M H. Package ‘ggplot2’[J]. Create elegant data visualisations using the grammar of graphics. Version, 2016, 2(1): 1-189.
+# References

@@ -29,6 +29,46 @@
 \geometry{a4paper, centering, text={16cm,24cm}}
 \usepackage[style=authoryear-comp,]{biblatex}
 \addbibresource{references.bib}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
@@ -304,21 +344,10 @@
 \begin{document}
 \titlepage
 
-
 \section*{Country China and USA}
 
 \hypertarget{read-data}{%
 \subsection{Read data}\label{read-data}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{options}\NormalTok{(}\AttributeTok{scipen =} \DecValTok{200}\NormalTok{)}
-\NormalTok{Analysis\_Data }\OtherTok{\textless{}{-}} \FunctionTok{read\_csv}\NormalTok{(here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"Data/Assignment\_data.csv"}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{data-preprocessing}{%
-\subsection{Data preprocessing}\label{data-preprocessing}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -333,44 +362,6 @@
 \begin{verbatim}
 ## [1] 96  7
 \end{verbatim}
-
-\hypertarget{india-and-united-kingdom}{%
-\section{INDIA and UNITED KINGDOM}\label{india-and-united-kingdom}}
-
-For \textbf{India and United Kingdom}, GDP and Annual working hours data from 1970 to 2017, lets calculate average of GDP and Working hours from 1970 to 2017 in \ref{tab:TableAvg}
-
-\begin{table}[!h]
-
-\caption{\label{tab:TableAvg}Average GDP and Working hours of India and United Kingdrom from 1970 to 2017}
-\centering
-\begin{tabular}[t]{c|c|c}
-\hline
-Country & avg\_GDP & avg\_working\_hrs\\
-\hline
-India & 2295.446 & 2084.478\\
-\hline
-United Kingdom & 26122.861 & 1729.940\\
-\hline
-\end{tabular}
-\end{table}
-
-From the above table \ref{tab:TableAvg}, we see that despite India has more average working hours than United Kingdom, the average vale of GDP of United Kingdom is very high than India which means, for India and United Kingdom, GDP does not depend on Working hours solely, there are other factors as well.
-
-To understand this, let's create a figure and see the trend in GDP and average working hours in India and United Kingdom.
-
-\begin{figure}
-
-{\centering \includegraphics{report_files/figure-latex/FigTrend-1} 
-
-}
-
-\caption{Average working hours and GDP of India and UK from 1970 to 2017}\label{fig:FigTrend}
-\end{figure}
-
-From the above Figure \ref{fig:FigTrend}, it is clear that in India, the Average working hours and GDP both are increasing but not as compared to UK. On the other hand, in UK, Average working hours are decreasing continuously while GDP is going up. Therefore, GDP does not solely depend on working hours or we can say that, in richer country, UK, people work for lesser number of hours as compared to India with low GDP. In India, the population has increased to a great extent and in UK, the increase has not been that much, therefore this huge increase in population might be another reason for India's falling short in GDP growth.
-
-To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article \textcite{article} which discusses about the macroeconomics factors which affect the GDP growth.
-
 
 \hypertarget{overall-descriptive-statistical-analysis}{%
 \subsection{Overall descriptive statistical analysis}\label{overall-descriptive-statistical-analysis}}
@@ -412,17 +403,17 @@ To understand GDP further and how the GDP is affected and what are the macroecon
 \hline
 Country & Variable & Minimum & Median & Mean & Maximum\\
 \hline
-China & Hours.worked & 1969.39 & 1985.48 & 2049.81 & 2192.35\\
+China & Hours.worked & 1969.39 & 1.985480e+03 & 2.049810e+03 & 2.192350e+03\\
 \hline
-China & GDP.per.capita & 1394.16 & 3127.29 & 4574.76 & 13042.65\\
+China & GDP.per.capita & 1394.16 & 3.127290e+03 & 4.574760e+03 & 1.304265e+04\\
 \hline
-China & Population & 827601385.00 & 1224418542.50 & 1179497606.85 & 1421021794.00\\
+China & Population & 827601385.00 & 1.224419e+09 & 1.179498e+09 & 1.421022e+09\\
 \hline
-United States & Hours.worked & 1729.96 & 1795.14 & 1799.27 & 1891.41\\
+United States & Hours.worked & 1729.96 & 1.795140e+03 & 1.799270e+03 & 1.891410e+03\\
 \hline
-United States & GDP.per.capita & 23285.58 & 37978.02 & 39046.42 & 54794.76\\
+United States & GDP.per.capita & 23285.58 & 3.797802e+04 & 3.904642e+04 & 5.479476e+04\\
 \hline
-United States & Population & 209513340.00 & 260886667.00 & 264561185.08 & 325084758.00\\
+United States & Population & 209513340.00 & 2.608867e+08 & 2.645612e+08 & 3.250848e+08\\
 \hline
 \end{tabular}
 \end{table}
@@ -509,24 +500,56 @@ United States & Population & 209513340.00 & 260886667.00 & 264561185.08 & 325084
 \caption{\label{fig:Figure4}Relationship between average annual hours worked and GDP (United States)}
 \end{figure}
 
-\hypertarget{conclusion}{%
-\subsection{Conclusion}\label{conclusion}}
-
 In this section, I analyzed data from China and the United States. First, I filtered out the data for these two countries from 1970 to 2017. Then I performed an overall descriptive statistical analysis of the primary variables (Average.annual.hours.worked, GDP.per.capita and Population).
 
 As shown in Table1\ref{tab:Table1}, the mean or median population in China is significantly larger than in the United States. But in GDP per capita, China is significantly less than the United States. And the average annual hours worked is slightly higher in China than in the United States.
 
 The trends of GDP in China and USA in Figure\ref{fig:Figure1} shows that GDP per capita in both China and the U.S. is rising year by year, but the upward trend is more obvious in the United States. And for the average annual hours worked shown in Figure\ref{fig:Figure2}, I found a clear upward trend of average annual hours worked in China, while the United States has fluctuated but declined slightly overall.
 
-Finally, I compared the relationship between average annual hours worked and GDP per capita in China and the United States. In China, the two variables showed a negative correlation in Figure\ref{fig:Figure3}, while in the United States of Figure\ref{fig:Figure4}, average annual hours worked decreases as GDP per capita rises.
+Finally, I compared the relationship between average annual hours worked and GDP per capita. In The United States Figure\ref{fig:Figure4}, as the annual work hours going down the trend of GDP per capita will going up. But for China Figure\ref{fig:Figure3} is completely opposite. When the annual work hours going up, The GDP per capital will also going up. I think it due to the high-speed development of economic in China. Furthermore, \textcite{BANISTER200521} also mentioned that in 21 of the 24 years from 1978 to 2001, China's per capita GDP grew in real terms between 6\% and 14\%. China's per capita living standards (measured by real GDP per capita) nearly quadrupled between 1978 and 2001.
 
-\hypertarget{reference}{%
-\subsection{Reference}\label{reference}}
+\hypertarget{india-and-united-kingdom}{%
+\section{INDIA and UNITED KINGDOM}\label{india-and-united-kingdom}}
 
-{[}1{]} Wickham H, Averick M, Bryan J, et al.~Welcome to the Tidyverse{[}J{]}. Journal of open source software, 2019, 4(43): 1686.
+For \textbf{India and United Kingdom}, GDP and Annual working hours data from 1970 to 2017, lets calculate average of GDP and Working hours from 1970 to 2017 in \ref{tab:TableAvg}
 
-{[}2{]} Wickham H, Chang W, Wickham M H. Package `ggplot2'{[}J{]}. Create elegant data visualisations using the grammar of graphics. Version, 2016, 2(1): 1-189.
+\begin{table}[!h]
 
-\printbibliography
+\caption{\label{tab:TableAvg}Average GDP and Working hours of India and United Kingdrom from 1970 to 2017}
+\centering
+\begin{tabular}[t]{c|c|c}
+\hline
+Country & avg\_GDP & avg\_working\_hrs\\
+\hline
+India & 2295.446 & 2084.478\\
+\hline
+United Kingdom & 26122.861 & 1729.940\\
+\hline
+\end{tabular}
+\end{table}
+
+From the above table \ref{tab:TableAvg}, we see that despite India has more average working hours than United Kingdom, the average vale of GDP of United Kingdom is very high than India which means, for India and United Kingdom, GDP does not depend on Working hours solely, there are other factors as well.
+
+To understand this, let's create a figure and see the trend in GDP and average working hours in India and United Kingdom.
+
+\begin{figure}
+
+{\centering \includegraphics{report_files/figure-latex/FigTrend-1} 
+
+}
+
+\caption{Average working hours and GDP of India and UK from 1970 to 2017}\label{fig:FigTrend}
+\end{figure}
+
+From the above Figure \ref{fig:FigTrend}, it is clear that in India, the Average working hours and GDP both are increasing but not as compared to UK. On the other hand, in UK, Average working hours are decreasing continuously while GDP is going up. Therefore, GDP does not solely depend on working hours or we can say that, in richer country, UK, people work for lesser number of hours as compared to India with low GDP. In India, the population has increased to a great extent and in UK, the increase has not been that much, therefore this huge increase in population might be another reason for India's falling short in GDP growth.
+
+To understand GDP further and how the GDP is affected and what are the macroeconomics factors affecting GDP growth, I also read an article \textcite{article2} which discusses about the macroeconomics factors which affect the GDP growth.
+
+\hypertarget{conclusion}{%
+\section{COnclusion}\label{conclusion}}
+
+For this study, we took 8 countries ( China, USA, India, UK, France, Mexico, Australia \& Indonesia) and analysed their respective GDP growth with respect to Hours of Work which each person does on an average in one year. After the analyzation, we found that GDP growth does not solely depend on Working hours and also, people in richer countries work for lesser number of hours. There can be many factors for this like population and how efficiently people are working and what are the resources available for people in rich countries with the help of which they are able to complete more work in less number of hours.
+
+\printbibliography[title=References]
 
 \end{document}
