@@ -69,25 +69,18 @@ This report will compare different countries to analyze the relationship between
 
 The first section will compare the countries between China and USA to analyze the relationship. The second section will choose the India and United Kingdom. Then we are going to see the country of France and Mexico because they are in two different income groups in the world. And the last part we will have a comparison between Indonesia and Australia.
 
-
-# China and USA
-
-## Read data
-
-
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
-
+#read the data set
 Analysis_Data <- read_csv(here::here("Data/Assignment_data.csv"))
-
 ```
 
+# China and USA
 
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 # filtering data from 1970 to 2017 for China and the United States
 data <- Analysis_Data %>%
   filter(Entity %in% c("China","United States")) %>%
   filter(Year>=1970 & Year<=2017)
-dim(data)
 ```
 
 ## Overall descriptive statistical analysis
@@ -119,7 +112,7 @@ In this section, I analyzed data from China and the United States. First, I filt
 knitr::kable(overall, digits = 2,
     caption = "Descriptive statistical analysis of China and the United States")
 ```
-As shown in Table1\@ref(tab:Table1), the mean or median population in China is significantly larger than in the United States. But in GDP per capita, China is significantly less than the United States. And the average annual hours worked is slightly higher in China than in the United States.
+As shown in Table \@ref(tab:Table1), the mean or median population in China is significantly larger than in the United States. But in GDP per capita, China is significantly less than the United States. And the average annual hours worked is slightly higher in China than in the United States.
 
 
 ## Trends in average annual hours worked and GDP per capita
@@ -241,7 +234,7 @@ To understand GDP further and how the GDP is affected and what are the macroecon
 
 @reference1 shows that France is a developed country. @reference2 indicates that Mexico is a developing country.
 
-Therefore, this section chooses these two different income group countries to explore the relationship between working hours and GDP. And the report will be analyzed from two perspectives. On the one hand, the report will observe the developing trend with the changes of working hours and GDP within each country. On the other hand, it will also compare these two diffrent counties to calculate their average working time and GDP.
+Therefore, this section chooses these two different income group countries to explore the relationship between working hours and GDP. And the report will be analyzed from two perspectives. On the one hand, the report will observe the developing trend with the changes of working hours and GDP within each country. On the other hand, it will also compare these two different counties to calculate their average working time and GDP.
 
 ## Analysis
 
@@ -303,7 +296,7 @@ kable(sec3_table, booktabs = TRUE, caption = "The Comparation of Average Working
 
 The Table \@ref(tab:comparation) above compares the the average annual hours worked by persons and the average output-side real GDP per capita between France and Mexico.
 
-And we can find from the table that the France has a lower working hours and a higher GDP compared with Mexico with 1,640 hours and 26,998 dollors respectively. And people in Mexico work around 2,297 hours and GDP per capita is around 12,339 dollors.
+And we can find from the table that the France has a lower working hours and a higher GDP compared with Mexico with 1,640 hours and 26,998 dollars respectively. And people in Mexico work around 2,297 hours and GDP per capita is around 12,339 dollars.
 
 Therefore, it can be concluded from these two countries that while average earnings have risen, hours worked have fallen. And working hours tend to decrease as countries become richer.
 
@@ -390,7 +383,7 @@ au_idn %>%
   theme_bw()
 ```
 
-Furthermore, looking at the comparison table \@ref(tab:mean) here, we can see that on average, from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is seven times higher than Indonesia's GDP. Therefore, we can conclude an inverse correlation between Australia and Indonesia's average working hours and GDP per capita, as seen in figure \@ref(fig:scatter), in which fewer Average working hours contributed to higher GDP. In comparison, more working hours resulted in a lower overall GDP.
+Furthermore, looking at the comparison table \@ref(tab:mean), we can see that on average, from the year 1970 to 2017,  Australia has around 100 Average Working Hours less than Indonesia, but the GDP is seven times higher than Indonesia's GDP. Therefore, we can conclude an inverse correlation between Australia and Indonesia's average working hours and GDP per capita, as seen in figure \@ref(fig:scatter), in which fewer Average working hours contributed to higher GDP. In comparison, more working hours resulted in a lower overall GDP.
 
 \clearpage
 
